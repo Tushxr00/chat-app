@@ -34,7 +34,8 @@ const VideoPlayer = () => {
       <Paper
         className={classes.paper}
         style={{
-          display: socketCtx.myVideo.current !== null ? "block" : "none",
+          display:
+            socketCtx.myVideo.current?.srcObject !== null ? "block" : "none",
         }}
       >
         <Grid item xs={12} md={6}>
