@@ -2,22 +2,22 @@ import React, { createContext, useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 import Peer from "simple-peer";
 
-// const SocketContext = createContext();
+const SocketContext = createContext();
 
-const SocketContext = React.createContext({
-  call: {},
-  callAccepted: false,
-  myVideo: null,
-  userVideo: null,
-  stream: null,
-  name: "",
-  setName: (text) => {},
-  callEnded: false,
-  me: "",
-  callUser: (id) => {},
-  leaveCall: () => {},
-  answerCall: () => {},
-});
+// const SocketContext = React.createContext({
+//   call: {},
+//   callAccepted: false,
+//   myVideo: null,
+//   userVideo: null,
+//   stream: null,
+//   name: "",
+//   setName: (text) => {},
+//   callEnded: false,
+//   me: "",
+//   callUser: (id) => {},
+//   leaveCall: () => {},
+//   answerCall: () => {},
+// });
 
 const socket = io("http://localhost:5000");
 
@@ -36,15 +36,14 @@ const ContextProvider = (props) => {
   useEffect(() => {
     const getUserMedia = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: true,
-        });
+        navigator.mediaDevices
+          .getUserMedia({ video: true, audio: true })
+          .then((currentStream) => {
+            setStream(currentStream);
 
-        setStream(stream);
+            myVideo.current.srcObject = currentStream;
+          });
 
-        myVideo.current.srcObject = stream;
-        console.log(myVideo.current.srcObject);
         socket.on("me", (id) => {
           setMe(id);
         });
@@ -68,7 +67,7 @@ const ContextProvider = (props) => {
     });
 
     peer.on("stream", (currentStream) => {
-      userVideo.srcObject = currentStream;
+      userVideo.current.srcObject = currentStream;
     });
 
     peer.signal(call.signal);
@@ -89,7 +88,7 @@ const ContextProvider = (props) => {
     });
 
     peer.on("stream", (currentStream) => {
-      userVideo.srcObject = currentStream;
+      userVideo.current.srcObject = currentStream;
     });
 
     socket.on("callAccepted", (signal) => {
