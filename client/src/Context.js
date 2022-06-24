@@ -19,7 +19,8 @@ const SocketContext = createContext();
 //   answerCall: () => {},
 // });
 
-const socket = io("http://localhost:5000");
+// const socket = io("http://localhost:5000");
+const socket = io("https://video-chat-app-by-tushxr00.herokuapp.com/");
 
 const ContextProvider = (props) => {
   const [callAccepted, setCallAccepted] = useState(false);
