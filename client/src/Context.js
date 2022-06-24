@@ -63,12 +63,10 @@ const ContextProvider = (props) => {
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
     peer.on("signal", (data) => {
-      console.log("signal answerCall", { data, call });
       socket.emit("answerCall", { signal: data, to: call.from });
     });
 
     peer.on("stream", (currentStream) => {
-      console.log("stream answerCall", { currentStream });
       userVideo.current.srcObject = currentStream;
     });
 
@@ -81,7 +79,6 @@ const ContextProvider = (props) => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
     peer.on("signal", (data) => {
-      console.log("signal callUser", { id, data, me, name });
       socket.emit("callUser", {
         userToCall: id,
         signalData: data,
@@ -91,7 +88,6 @@ const ContextProvider = (props) => {
     });
 
     peer.on("stream", (currentStream) => {
-      console.log("stream callUser", { currentStream });
       userVideo.current.srcObject = currentStream;
     });
 
