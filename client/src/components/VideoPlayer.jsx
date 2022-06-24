@@ -26,27 +26,32 @@ const VideoPlayer = () => {
   const classes = useStyles();
 
   const socketCtx = useContext(SocketContext);
-
+  console.log(socketCtx.myVideo);
   return (
     <Grid container className={classes.gridContainer}>
-      {socketCtx}
       {/* Our own video player*/}
-      {socketCtx.stream && (
-        <Paper className={classes.paper}>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
-              {socketCtx.name || "Name"}
-            </Typography>
-            <video
-              playsInline
-              muted
-              ref={socketCtx.myVideo}
-              autoPlay
-              className={classes.video}
-            />
-          </Grid>
-        </Paper>
-      )}
+
+      <Paper
+        className={classes.paper}
+        style={{
+          display: socketCtx.myVideo.current !== null ? "block" : "none",
+        }}
+      >
+        <Grid item xs={12} md={6}>
+          <Typography variant="h5" gutterBottom>
+            {socketCtx.name || "Name"}
+          </Typography>
+
+          <video
+            playsInline
+            muted
+            ref={socketCtx.myVideo}
+            autoPlay
+            className={classes.video}
+          />
+        </Grid>
+      </Paper>
+
       {/* Other user's video player*/}
       {socketCtx.callAccepted && !socketCtx.callEnded && (
         <Paper className={classes.paper}>

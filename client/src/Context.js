@@ -4,10 +4,10 @@ import Peer from "simple-peer";
 
 const SocketContext = createContext();
 
-// const socket = io('http://localhost:5000');
-const socket = io("https://warm-wildwood-81069.herokuapp.com");
+const socket = io("http://localhost:5000");
+// const socket = io("https://warm-wildwood-81069.herokuapp.com");
 
-const ContextProvider = ({ children }) => {
+const ContextProvider = (props) => {
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
@@ -17,26 +17,37 @@ const ContextProvider = ({ children }) => {
 
   // const myVideo = useRef({ current: { srcObject: {} } });
   // const userVideo = useRef({ current: { srcObject: {} } });
-  const myVideo = useRef();
-  const userVideo = useRef();
-  const connectionRef = useRef();
+
+  const myVideo = useRef(null);
+  const userVideo = useRef(null);
+  const connectionRef = useRef(null);
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
+    const getUserMedia = async () => {
+      try {
+        // const stream = await navigator.mediaDevices.getUserMedia({video: true});
+        // videoRef.current.srcObject = stream;
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
 
-        myVideo.current.srcObject = currentStream;
-      });
+        setStream(stream);
 
-    socket.on("me", (id) => {
-      setMe(id);
-    });
-    socket.on("callUser", ({ from, callerName, signal }) => {
-      setCall({ isReceivedCall: true, from, callerName, signal });
-    });
-  }, []);
+        myVideo.current.srcObject = stream;
+        console.log(myVideo.current.srcObject);
+        socket.on("me", (id) => {
+          setMe(id);
+        });
+        socket.on("callUser", ({ from, callerName, signal }) => {
+          setCall({ isReceivedCall: true, from, callerName, signal });
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserMedia();
+  }, [myVideo]);
 
   const answerCall = () => {
     setCallAccepted(true);
@@ -89,24 +100,24 @@ const ContextProvider = ({ children }) => {
     window.location.reload();
   };
 
+  const contextValue = {
+    call,
+    callAccepted,
+    myVideo,
+    userVideo,
+    stream,
+    name,
+    setName,
+    callEnded,
+    me,
+    callUser,
+    leaveCall,
+    answerCall,
+  };
   return (
-    <SocketContext.Provider
-      value={{
-        call,
-        callAccepted,
-        myVideo,
-        userVideo,
-        stream,
-        name,
-        setName,
-        callEnded,
-        me,
-        callUser,
-        leaveCall,
-        answerCall,
-      }}
-    >
-      {children}
+    <SocketContext.Provider value={contextValue}>
+      {props.children}
+      {/* <video playsInline ref={myVideo} autoPlay /> */}
     </SocketContext.Provider>
   );
 };
