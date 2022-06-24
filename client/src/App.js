@@ -10,16 +10,15 @@ import VideoPlayer from "./components/VideoPlayer";
 const App = () => {
   return (
     <div>
-      <p>hi</p>
       <AppBar position="static" color="inherit">
-        {/* <Typography variant="h2" align="center"> */}
-        Video chat
-        {/* </Typography> */}
+        <Typography variant="h2" align="center">
+          Video chat
+        </Typography>
       </AppBar>
-      {/* <VideoPlayer />
+      <VideoPlayer />
       <Options>
         <Notifications />
-      </Options> */}
+      </Options>
     </div>
   );
 };
