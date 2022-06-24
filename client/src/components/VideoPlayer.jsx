@@ -38,6 +38,9 @@ const VideoPlayer = () => {
             socketCtx.myVideo.current?.srcObject !== null ? "block" : "none",
         }}
       >
+        {console.log(socketCtx.myVideo.current?.srcObject)}
+        {console.log(socketCtx.myVideo.current)}
+        {console.log(socketCtx.myVideo)}
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>
             {socketCtx.name || "Name"}
