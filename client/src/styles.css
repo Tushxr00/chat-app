@@ -1,11 +1,14 @@
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    /* url("assets/32819.jpg"); */
-      url(https://i.pinimg.com/originals/8f/14/57/8f14578ef69a4c53352955d1e072eda6.png);
+    url("assets/32830.jpg");
+  /* url("assets/32819.jpg"); */
+  /* url("assets/a9329b6beb4d240a05cef743877b59eb.jpg"); */
+  /* url(https://i.pinimg.com/originals/8f/14/57/8f14578ef69a4c53352955d1e072eda6.png); */
   /* url(https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  object-fit: cover;
 }
 
 * {
