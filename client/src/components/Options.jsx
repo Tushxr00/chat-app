@@ -62,7 +62,6 @@ const Options = (props) => {
                 onChange={(e) => socketCtx.setName(e.target.value)}
                 fullWidth
               />
-              {console.log(socketCtx.me)}
               <CopyToClipboard
                 fullWidth
                 text={socketCtx.me}

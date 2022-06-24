@@ -9,7 +9,7 @@ const Notifications = () => {
     <div>
       {socketCtx.call.isReceivedCall && !socketCtx.callAccepted && (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <h1> {console.log(socketCtx.call)} is Calling :</h1>
+          <h1> {socketCtx.call.name} is Calling :</h1>
           <Button
             variant="contained"
             color="primary"

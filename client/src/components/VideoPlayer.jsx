@@ -26,7 +26,8 @@ const VideoPlayer = () => {
   const classes = useStyles();
 
   const socketCtx = useContext(SocketContext);
-  console.log(socketCtx.myVideo);
+  // console.log(socketCtx.myVideo);
+
   return (
     <Grid container className={classes.gridContainer}>
       {/* Our own video player*/}
