@@ -5,7 +5,6 @@ import Peer from "simple-peer";
 const SocketContext = createContext();
 
 const socket = io("http://localhost:5000");
-// const socket = io("https://warm-wildwood-81069.herokuapp.com");
 
 const ContextProvider = (props) => {
   const [callAccepted, setCallAccepted] = useState(false);
@@ -15,9 +14,6 @@ const ContextProvider = (props) => {
   const [call, setCall] = useState({});
   const [me, setMe] = useState("");
 
-  // const myVideo = useRef({ current: { srcObject: {} } });
-  // const userVideo = useRef({ current: { srcObject: {} } });
-
   const myVideo = useRef(null);
   const userVideo = useRef(null);
   const connectionRef = useRef(null);
@@ -25,8 +21,6 @@ const ContextProvider = (props) => {
   useEffect(() => {
     const getUserMedia = async () => {
       try {
-        // const stream = await navigator.mediaDevices.getUserMedia({video: true});
-        // videoRef.current.srcObject = stream;
         const stream = await navigator.mediaDevices.getUserMedia({
           video: true,
           audio: true,
@@ -117,7 +111,6 @@ const ContextProvider = (props) => {
   return (
     <SocketContext.Provider value={contextValue}>
       {props.children}
-      {/* <video playsInline ref={myVideo} autoPlay /> */}
     </SocketContext.Provider>
   );
 };
