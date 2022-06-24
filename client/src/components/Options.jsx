@@ -11,7 +11,6 @@ import {
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Assignment, Phone, PhoneDisabled } from "@material-ui/icons";
 import { SocketContext } from "../Context";
-import { callWithAsyncErrorHandling } from "vue";
 
 const useStyles = makeStyles((theme) => ({
   root: {
