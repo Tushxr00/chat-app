@@ -53,21 +53,30 @@ const VideoPlayer = () => {
       </Paper>
 
       {/* Other user's video player*/}
-      {socketCtx.callAccepted && !socketCtx.callEnded && (
-        <Paper className={classes.paper}>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
-              {socketCtx.call.name || "Name"}
-            </Typography>
-            <video
-              playsInline
-              ref={socketCtx.userVideo}
-              autoPlay
-              className={classes.video}
-            />
-          </Grid>
-        </Paper>
-      )}
+
+      <Paper
+        className={classes.paper}
+        style={{
+          display:
+            socketCtx.callAccepted &&
+            !socketCtx.callEnded &&
+            socketCtx.myVideo.current !== null
+              ? "block"
+              : "none",
+        }}
+      >
+        <Grid item xs={12} md={6}>
+          <Typography variant="h5" gutterBottom>
+            {socketCtx.call.name || "Name"}
+          </Typography>
+          <video
+            playsInline
+            ref={socketCtx.userVideo}
+            autoPlay
+            className={classes.video}
+          />
+        </Grid>
+      </Paper>
     </Grid>
   );
 };
